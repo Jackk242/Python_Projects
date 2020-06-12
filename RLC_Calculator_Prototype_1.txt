@@ -1,0 +1,150 @@
+def num_check(conv_CA):
+    
+    if int(conv_CA) >= 1:
+        
+        return conv_CA
+        
+    else:
+        
+        print("Please try again.")
+        print("")
+        
+        num_check(conv_CA)
+        
+
+#Check to make sure circuit classification is correct    
+def classify_circuit(RLC_id):
+    
+    if RLC_id == "R":
+        
+        print("Using resistances")
+        
+        return RLC_id
+        
+    elif RLC_id == "C":
+        
+        print("Using capacitances")
+        
+        return RLC_id
+        
+    elif RLC_id == "L":
+        
+        print("Using inductances")
+        
+        return RLC_id
+        
+    else:
+        
+        print("Please try again.")
+        print("")
+        
+        main_process()
+        
+def RL_parallel(conv_CA, parts):
+    
+    reciprocal_total = 0
+    
+    for y in range(0, conv_CA):
+                
+                part_reciprocal = 1/parts[y]
+                
+                reciprocal_total += part_reciprocal
+                
+    finished_calc = 1/reciprocal_total
+                
+    return finished_calc
+                
+def C_series(conv_CA, parts):
+    
+    reciprocal_total = 0
+    
+    for y in range(0, conv_CA):
+                
+                part_reciprocal = 1/parts[y]
+                
+                reciprocal_total += part_reciprocal
+                
+    
+    finished_calc = 1/reciprocal_total
+                
+    return finished_calc
+    
+def circuit_sum(RLC_id, circuit_classification, parts, conv_CA):
+    
+        if (RLC_id == "R") or (RLC_id == "L"):
+        
+            if circuit_classification == "S":
+            
+                RL_total = sum(parts)
+            
+                return RL_total
+            
+            else:
+            
+                return RL_parallel(conv_CA, parts)
+                
+                
+        else: 
+        
+            if circuit_classification == "S":
+            
+                return C_series(conv_CA, parts)
+            
+            else:
+            
+                C_total = sum(parts)
+            
+                return C_total
+        
+def main_process():
+    
+    # print("Welcome to the RLC circuit simplifier! Please note this program can only do one set of circuits at a time, enjoy!")
+   
+    RLC_id = input("Please enter whether you are working with resistances(R), capacitances(C), inductances(L): ")
+    
+    classify_circuit(RLC_id)
+    
+    component_amount = input("Please enter the number of components that you have: ")
+    
+    conv_CA = int(component_amount)
+    
+    num_check(conv_CA)
+    
+    parts = []
+    
+    for x in range(0, conv_CA):
+            
+            current_part_num = x + 1
+            
+            part_enter = input("Enter part %f value: " % (current_part_num))
+            
+            part_enter2 = float(part_enter)
+            
+            parts.append(part_enter2)
+            
+    
+    circuit_classification = input("Is your circuit a series(S) or parallel(P) circuit?: ")
+    
+    if RLC_id == "R":
+        
+        print("Your total resistance is: " + str(circuit_sum(RLC_id, circuit_classification, parts, conv_CA)) + " ohms.")
+        
+    elif RLC_id == "C":
+        
+        print("Your total capacitance is: " + str(circuit_sum(RLC_id, circuit_classification, parts, conv_CA)) + " farads.")
+        
+    elif RLC_id == "L":
+        
+        print("Your total inductance is: " + str(circuit_sum(RLC_id, circuit_classification, parts, conv_CA)) + " henries.")
+        
+    else:
+        
+        print("Nothing")
+    
+    #add circuit checker here
+    
+            
+            
+    
+    
+main_process()

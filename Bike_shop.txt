@@ -1,0 +1,133 @@
+import math
+
+#Ask customer for needed service and convert to int
+    
+customer_req = input("Do you want to buy a bike or fix a bike? Type '1' for a new bike or '2' to fix your own: ")
+
+req_conversion = int(customer_req)
+
+def customer_funct(customer_choice):
+    
+    #Decide if customer needs bike, fix or niether.
+    
+    if req_conversion == 1:
+    
+        cust_hgt = input("Let's see how tall you are, please put your height in inches: ")
+        
+        hgt_conversion = int(cust_hgt)
+        
+        #Decision algorithm for new bike
+
+        def choose_bike(customer_choice2):
+            
+            local_charge = 0
+
+            if hgt_conversion < 65:
+        
+                local_charge += 49.99
+        
+                print("Added a small bike to your order.")
+                
+                time_to_pay(local_charge)
+        
+            elif hgt_conversion >=65 and hgt_conversion <= 72:
+    
+                local_charge += 74.99
+        
+                print("Added a medium bike to your order.")
+                
+                time_to_pay(local_charge)
+        
+            elif hgt_conversion > 72:
+        
+                local_charge += 99.99
+        
+                print("Added a large bike to your order.")
+                
+                time_to_pay(local_charge)
+        
+            else:
+        
+                choose_bike(hgt_conversion)
+        
+                print("Let's try that again.")
+        
+        choose_bike(hgt_conversion)
+        
+        
+    
+    #Decision algorithm for new part
+    
+    elif req_conversion == 2:
+    
+        cust_fix = input("Please enter your disabled part. Type 'tires' for new tires, 'GS' for a gear system, or 'brakes' for new brakes.: ")
+        
+        #figure out what part the user wants
+        
+        def choose_part(customer_choice3):
+            
+            local_charge = 0
+
+            if cust_fix == "tires":
+        
+                local_charge += 10.99
+        
+                print("Added new tires to your order.")
+                
+                time_to_pay(local_charge)
+        
+            elif cust_fix == "GS":
+    
+                local_charge += 20.99
+        
+                print("Added a gear system to your order.")
+                
+                time_to_pay(local_charge)
+        
+            elif cust_fix == "brakes":
+        
+                local_charge += 15.99
+        
+                print("Added new brakes to your order.")
+                
+                time_to_pay(local_charge)
+        
+            else:
+        
+                print("Let's try that again.")
+                
+                customer_funct(customer_choice)
+        
+        choose_part(cust_fix)
+        
+    
+    #invalid response prompt
+    
+    else:
+        print("It appears we cannot service you. Have a good day!")
+        
+
+# function for paying the final bill
+        
+def time_to_pay(total_charge):
+    
+    print("Your total is: " + str(total_charge))
+    
+    pay_check = input("Please press Y to pay or N to cancel the transaction: ")
+    
+    if pay_check == "Y":
+        
+        print("Thank you, have a good day!")
+        
+    elif pay_check == "N":
+        
+        print("Your transaction has been declined, please run again.")
+        
+    else:
+        
+        print("You entered an invalid response, please try again.")
+        
+        time_to_pay(total_charge)
+
+
+customer_funct(req_conversion)
